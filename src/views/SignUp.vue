@@ -46,7 +46,17 @@ export default {
       } ,
       proccessing() {
         return this.$store.getters.getProccessing
+      },
+      isUserAutheticated() {
+        return this.$store.getters.isUserAuth
       }                                                           
+    },
+    watch:{
+      isUserAutheticated(val) {
+        if (val === true) {
+          this.$router.push("/")
+        }
+      }
     },
     methods: {
       signUp() {
