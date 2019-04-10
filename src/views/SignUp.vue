@@ -15,14 +15,14 @@
                 >
                   {{ error }}
                 </v-alert>
-                <v-form>
-                  <v-text-field prepend-icon="person" name="login" label="Login" type="email" required v-model="email"></v-text-field>
-                  <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" required v-model="password"></v-text-field>
+                <v-form v-model="valid">
+                  <v-text-field prepend-icon="person" name="login" label="Login" type="email" required v-model="email" :rules="emailRules"></v-text-field>
+                  <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" required v-model="password" :rules="passwordRules"></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click.prevent="signUp" :disabled="proccessing">Зарегистрироваться</v-btn>
+                <v-btn color="primary" @click.prevent="signUp" :disabled="proccessing || !valid">Зарегистрироваться</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -37,7 +37,16 @@ export default {
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+            valid: false,
+            emailRules: [
+              (v) => !!v || 'Input email, please',
+              (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Uncorrectly email'
+            ],
+            passwordRules: [
+              (v) => !!v || 'Input password, please',
+              (v) => (v && v.length >= 6) || 'Password - short. Minimum 6 symbols'
+            ]
         }
     },
     computed:{
@@ -60,7 +69,7 @@ export default {
     },
     methods: {
       signUp() {
-        this.$store.dispatch('SIGNUP', {email: this.email, password: this.password})
+        this.$store.dispatch('SIGN_UP', {email: this.email, password: this.password})
       }
     }
 }
