@@ -7,6 +7,9 @@ export default {
             uid: null
         }
     },
+    getters:{
+        isUserAuth: state => state.user.isAuth
+    },
     mutations: {
         SET_USER(state, payload) {
             state.user.isAuth = true
@@ -20,6 +23,19 @@ export default {
             .then(user => {
                 commit('SET_USER', user.uid)
                 commit('SET_PROCCESSING', false)
+                
+            })
+            .catch(function(error) {
+                commit('SET_PROCCESSING', false)
+                commit('SET_ERROR', error.message)
+              });
+        },
+        SIGNIN({commit}, payload) {
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+            .then(user => {
+                commit('SET_USER', user.uid)
+                commit('SET_PROCCESSING', false)
+                
             })
             .catch(function(error) {
                 commit('SET_PROCCESSING', false)
