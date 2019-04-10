@@ -34,47 +34,62 @@ export default {
     name: 'app-header',
     data() {
         return {
-            drawer: false,
-            menuItems: [
-            
-            {
-                id: 1,
-                icon: 'visibility',
-                title: 'Читать',
-                route: '/books'
-            },
-            {
-                id: 2,
-                icon: 'extension',
-                title: 'Учить слова',
-                route: '/words'
-            },
-            {
-                id: 3,
-                icon: 'account_circle',
-                title: 'Мой кабинет',
-                route: '/profile'
-            },
-            {
-                id: 4,
-                icon: 'exit_to_app',
-                title: 'Выйти',
-                route: '/logout'
-            },
-            {
-                id: 5,
-                icon: 'input',
-                title: 'Войти',
-                route: '/signin'
-            },
-            {
-                id: 6,
-                icon: 'lock_open',
-                title: 'Зарегстрироваться',
-                route: '/signup'
-            }
-         ]
+            drawer: false
         }
+    },
+    computed: {
+        isUserAutheticated() {
+        return this.$store.getters.isUserAuth
+      },
+      menuItems() {
+          return this.isUserAutheticated ? 
+          [
+                {
+                    id: 1,
+                    icon: 'visibility',
+                    title: 'Читать',
+                    route: '/books'
+                },
+                {
+                    id: 2,
+                    icon: 'extension',
+                    title: 'Учить слова',
+                    route: '/words'
+                },
+                {
+                    id: 3,
+                    icon: 'account_circle',
+                    title: 'Мой кабинет',
+                    route: '/profile'
+                },
+                {
+                    id: 4,
+                    icon: 'exit_to_app',
+                    title: 'Выйти',
+                    route: '/logout'
+                }
+          ] : 
+          [
+              {
+                    id: 1,
+                    icon: 'visibility',
+                    title: 'Читать',
+                    route: '/books'
+                },
+                {
+                    id: 5,
+                    icon: 'input',
+                    title: 'Войти',
+                    route: '/signin'
+                },
+                {
+                    id: 6,
+                    icon: 'lock_open',
+                    title: 'Зарегистрироваться',
+                    route: '/signup'
+                }
+          ]
+      }
     }
    
 }
