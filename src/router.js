@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Books from './views/Books.vue'
+import Book from './views/Book.vue'
 import Words from './views/Words.vue'
 import Profile from './views/Profile.vue'
 import SignIn from './views/SignIn.vue'
@@ -24,6 +25,12 @@ export default new Router({
       path: '/books',
       name: 'books',
       component: Books
+    },
+    {
+      path: '/books/book/:id',
+      name: 'book',
+      props: true,
+      component: Book
     },
     {
       path: '/words',
