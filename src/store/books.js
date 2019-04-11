@@ -36,7 +36,7 @@ export default {
                         imageUrl: data.imageUrl,
                         rating: data.rating,
                         ratingsCount: data.ratingsCount,
-                        parts: []
+                        parts: data.parts
                     }
                     books.push(book)
                 });
